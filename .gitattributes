@@ -1,2 +1,7 @@
+modelsMod/*.pkl filter=lfs diff=lfs merge=lfs -text
+Back_Regionathon2024/*.pkl filter=lfs diff=lfs merge=lfs -text
+Back_Regionathon2024/models/*.pkl filter=lfs diff=lfs merge=lfs -text
+data/*.csv filter=lfs diff=lfs merge=lfs -text
+data/.ipynb_checkpoints/*.csv filter=lfs diff=lfs merge=lfs -text
 *.pkl filter=lfs diff=lfs merge=lfs -text
 *.csv filter=lfs diff=lfs merge=lfs -text

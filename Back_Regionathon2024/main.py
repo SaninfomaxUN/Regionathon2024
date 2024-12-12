@@ -1,9 +1,13 @@
 from fastapi import FastAPI
-
-from Back_Regionathon2024.objects.Params import Params
+from pydantic import BaseModel
 
 app = FastAPI()
 
+# Definir un modelo de datos con Pydantic
+class LoginParams(BaseModel):
+    email: str
+    password: str
+    destination_port: int
 
 @app.get("/")
 def read_root():
@@ -15,7 +19,8 @@ def read_item(item_id: int, q: str = None):
     return {"item_id": item_id, "q": q}
 
 
+
 @app.post("/login")
-def login(params):
+def login(params: LoginParams):
     print(params)
     return {"message": "Login successful"}

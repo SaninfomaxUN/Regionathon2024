@@ -1,23 +1,22 @@
 import { Handlers } from "$fresh/server.ts";
-import {dataTest1} from "../test/dataTest.ts";
 
 export const handler: Handlers = {
     async POST(req, ctx) {
         const form = await req.formData();
-        dataTest1.email = form.get("Email")?.toString() || "";
-        dataTest1.password = form.get("Password")?.toString() || "";
+        const email = form.get("Email")?.toString() || "";
+        const password = form.get("Password")?.toString() || "";
         const destination_port = new URL(req.url).port as unknown as number|| 0;
-        dataTest1.destination_port =  destination_port as number;
-        dataTest1.fwd_header_length = JSON.stringify([...req.headers]).length;
 
         const webhookUrl = "http://localhost:8000/login";
-        const response = await fetch(webhookUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ dataTest: dataTest1 }),
-        });
+        let response: any;
 
-        console.log(dataTest1);
+        for (let i = 0; i < 40; i++) {
+            response = await fetch(webhookUrl, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({email, password, destination_port}),
+            });
+        }
 
         const headers = new Headers();
         if (!response.ok) {
